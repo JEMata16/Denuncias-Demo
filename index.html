@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Denuncias</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Formulario de Denuncias</h2>
+    <form id="denunciaForm">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" id="apellidos" name="apellidos" required>
+      </div>
+      <div class="form-group">
+        <label for="cedula">Número de Identidad (Cédula)</label>
+        <input type="text" id="cedula" name="cedula" maxlength="12" required oninput="formatCedula(this)">
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" maxlength="8" required>
+      </div>
+      <div class="form-group">
+        <label for="correo">Correo Electrónico</label>
+        <input type="email" id="correo" name="correo" required>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción del Caso</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
+      </div>
+
+      <div class="sec-center"> 	
+        <input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
+        <label class="for-dropdown" for="dropdown">Selecciona Categorías <i class="uil uil-arrow-down"></i></label>
+        <div class="section-dropdown" id="category-options"> 
+          <!-- Aquí se llenarán las opciones dinámicamente -->
+        </div>
+        <p id="error-message" style="display:none; color: red;">Por favor, selecciona al menos una categoría.</p>
+      </div>
+      <div style="padding-bottom: 10px;">
+        <label for="images" class="drop-container" id="dropcontainer">
+            <span class="drop-title">Arrastrar imagen/video</span>
+            or
+            <input type="file" id="images" accept="image/*" multiple required>
+          </label>
+      </div>
+      <div class="form-group">
+        <button type="submit">Enviar Denuncia</button>
+      </div>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
