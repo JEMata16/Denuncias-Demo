@@ -6,7 +6,7 @@
   <title>Formulario de Denuncias</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body style="display: flex; flex-direction: column;">
   <div class="form-container">
     <h2>Formulario de Denuncias</h2>
     <form id="denunciaForm">
@@ -20,7 +20,7 @@
       </div>
       <div class="form-group">
         <label for="cedula">Número de Identidad (Cédula)</label>
-        <input type="text" id="cedula" name="cedula" maxlength="12" required oninput="formatCedula(this)">
+        <input type="text" id="cedula" name="cedula" maxlength="11" required oninput="formatCedula(this)">
       </div>
       <div class="form-group">
         <label for="telefono">Teléfono</label>
@@ -39,11 +39,14 @@
         <input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
         <label class="for-dropdown" for="dropdown">Selecciona Categorías <i class="uil uil-arrow-down"></i></label>
         <div class="section-dropdown" id="category-options"> 
+          <span style="color: yellow;">Las opciones en amarillo son las seleccionadas</span>
           <!-- Aquí se llenarán las opciones dinámicamente -->
         </div>
         <p id="error-message" style="display:none; color: red;">Por favor, selecciona al menos una categoría.</p>
       </div>
       <div style="padding-bottom: 10px;">
+        <div class="form-group"> <label>Si tiene alguna evidencia que apoye a la investigación agradecemos aportarla.</label></div>
+       
         <label for="images" class="drop-container" id="dropcontainer">
             <span class="drop-title">Arrastrar imagen/video</span>
             or
@@ -55,6 +58,16 @@
       </div>
     </form>
   </div>
+
+  <div id="tabla-container" class="tabla-container"></div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <p>Agradecemos sinceramente su confianza, su información ha sido recibida y será tratada con máxima confidencialidad.</p>
+      <button id="cerrar-modal">Cerrar</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

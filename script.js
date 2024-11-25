@@ -2,12 +2,14 @@ document
   .getElementById("denunciaForm")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-    validateSelection();
-    alert("Formulario enviado");
+    //validateSelection();
+    mostrarDatosEnTabla();
+    mostrarModal();
   });
 
 // Lista de categorías para el dropdown
-const categories = ["Fraude", "Corrupción", "Abuso de Poder", "Discriminación"];
+const categories = ["Actos terroristas", "Circulación de moneda falsa", "Cohecho", "Contrabando", "Corrupción", 
+  "Conflicto de intereses","Fraude", "Corrupción", "Abuso de Poder", "Lavado de dinero", "Otros"];
 
 // Función para renderizar las opciones de categorías
 function renderCategories() {
@@ -92,3 +94,101 @@ function formatCedula(input) {
   const formattedValue = value.replace(/(\d)(\d{4})(\d{4})/, "$1-$2-$3");
   input.value = formattedValue;
 }
+
+// Función para mostrar los datos enviados en una tabla
+function mostrarDatosEnTabla() {
+  const tablaContainer = document.getElementById("tabla-container");
+
+  // Verifica si el contenedor existe en el DOM
+  if (!tablaContainer) {
+    console.error("El contenedor para la tabla no existe en el DOM.");
+    return;
+  }
+
+  // Crear la tabla solo si no existe
+  let tabla = document.getElementById("tablaDenuncias");
+  if (!tabla) {
+    tabla = document.createElement("table");
+    tabla.id = "tablaDenuncias";
+    tabla.innerHTML = `
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Cédula</th>
+          <th>Teléfono</th>
+          <th>Correo Electrónico</th>
+          <th>Descripción</th>
+          <th>Categorías</th>
+          <th>Evidencia</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    `;
+    tablaContainer.appendChild(tabla); // Agregar la tabla al contenedor
+  }
+
+  const form = document.getElementById("denunciaForm");
+  const formData = new FormData(form);
+
+  // Obtener valores del formulario
+  const nombre = formData.get("nombre");
+  const apellidos = formData.get("apellidos");
+  const cedula = formData.get("cedula");
+  const telefono = formData.get("telefono");
+  const correo = formData.get("correo");
+  const descripcion = formData.get("descripcion");
+
+  // Obtener categorías seleccionadas
+  const categoriasSeleccionadas = Array.from(
+    document.querySelectorAll(".category-checkbox:checked")
+  )
+    .map((checkbox) => checkbox.value)
+    .join(", ");
+
+  // Obtener imágenes cargadas
+  const fileInput = document.getElementById("images");
+  const files = fileInput.files; // Obtén los archivos directamente del input
+  let imagenesHTML = "";
+
+  if (files.length > 0) {
+    for (const file of files) {
+      const url = URL.createObjectURL(file);
+      imagenesHTML += `<img src="${url}" alt="Imagen" width="100" style="margin: 5px;">`;
+    }
+  } else {
+    imagenesHTML = "Sin imágenes";
+  }
+
+  // Crear una fila con los datos
+  const fila = document.createElement("tr");
+  fila.innerHTML = `
+    <td>${nombre}</td>
+    <td>${apellidos}</td>
+    <td>${cedula}</td>
+    <td>${telefono}</td>
+    <td>${correo}</td>
+    <td>${descripcion}</td>
+    <td>${categoriasSeleccionadas}</td>
+    <td>${imagenesHTML}</td>
+  `;
+
+  // Agregar la fila a la tabla
+  tabla.querySelector("tbody").appendChild(fila);
+
+  // Limpiar el formulario
+  form.reset();
+}
+
+
+
+
+// Función para mostrar el modal
+function mostrarModal() {
+  const modal = document.getElementById("modal");
+  modal.style.display = "block";
+}
+
+document.getElementById("cerrar-modal").addEventListener("click", () => {
+  modal.style.display = "none";
+});
