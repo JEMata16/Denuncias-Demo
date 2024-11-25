@@ -8,7 +8,8 @@ document
   });
 
 // Lista de categorías para el dropdown
-const categories = ["Actos terroristas", "Circulación de moneda falsa", "Cohecho", "Contrabando", "Corrupción", 
+const categories = ["Legitimación de capitales", "Financiamento de la proliferación de armas de destrucción masiva", 
+  "Financiamiento al terrorismo", "Circulación de moneda falsa", "Cohecho", "Contrabando", "Corrupción", 
   "Conflicto de intereses","Fraude", "Corrupción", "Abuso de Poder", "Lavado de dinero", "Otros"];
 
 // Función para renderizar las opciones de categorías
@@ -98,7 +99,7 @@ function formatCedula(input) {
 // Función para mostrar los datos enviados en una tabla
 function mostrarDatosEnTabla() {
   const tablaContainer = document.getElementById("tabla-container");
-
+  tablaContainer.style.display = "block";
   // Verifica si el contenedor existe en el DOM
   if (!tablaContainer) {
     console.error("El contenedor para la tabla no existe en el DOM.");
